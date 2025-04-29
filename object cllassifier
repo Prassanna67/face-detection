@@ -1,0 +1,35 @@
+import cv2
+import numpy as np
+from tensorflow.keras.applications.mobilenet import MobileNet, preprocess_input, decode_predictions # type: ignore
+
+# Load the pre-trained MobileNet model
+model = MobileNet(weights='imagenet')
+
+# Start webcam
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Resize frame to 224x224 for MobileNet
+    img = cv2.resize(frame, (224, 224))
+    img_array = np.expand_dims(img, axis=0)
+    img_array = preprocess_input(img_array)
+
+    # Predict
+    preds = model.predict(img_array)
+    decoded_preds = decode_predictions(preds, top=1)[0][0]  # Top 1 prediction
+
+    label = f"{decoded_preds[1]}: {decoded_preds[2]*100:.2f}%"
+
+    # Display the label on original frame
+    cv2.putText(frame, label, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    cv2.imshow('Object Classifier', frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
