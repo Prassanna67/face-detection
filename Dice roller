@@ -1,0 +1,5 @@
+import random
+print("🎲 Welcome to the Python Dice Roller!")
+input("Press Enter to roll the dice...")
+dice = random.randint(1, 6)
+print("You rolled a", dice)
