@@ -1,0 +1,43 @@
+#include <SoftwareSerial.h>
+#include <VoiceRecognitionV3.h>
+
+SoftwareSerial mySerial(2, 3);   // RX, TX
+VR myVR(mySerial);
+
+const int ledPin = 8;            // LED pin
+uint8_t records[7];              // Save voice commands
+uint8_t buf[64];
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+  mySerial.begin(9600);
+
+  if (myVR.begin()) {
+    Serial.println("Voice Module Ready");
+  } else {
+    Serial.println("Module Not Detected");
+  }
+
+  if (myVR.clear()) {
+    Serial.println("Voice commands cleared.");
+  }
+
+  Serial.println("Please train the module.");
+}
+
+void loop() {
+  int ret = myVR.recognize(buf, 50);
+  if (ret > 0) {
+    Serial.print("Command: ");
+    Serial.println(buf[1], DEC);
+
+    if (buf[1] == 1) {  // LIGHT ON command
+      digitalWrite(ledPin, HIGH);
+      Serial.println("Light On");
+    } else if (buf[1] == 2) {  // LIGHT OFF command
+      digitalWrite(ledPin, LOW);
+      Serial.println("Light Off");
+    }
+  }
+}
