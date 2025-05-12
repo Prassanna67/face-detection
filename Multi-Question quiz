@@ -1,0 +1,17 @@
+score = 0
+# Question 1
+answer1 = input("What is 2 + 2? ")
+if answer1 == "4":
+    print("Correct!")
+    score += 1
+else:
+    print("Nope, it’s 4.")
+# Question 2
+answer2 = input("What color is the sky on a clear day? ")
+if answer2.lower() == "blue":
+    print("Correct!")
+    score += 1
+else:
+    print("Not quite, it’s blue.")
+# Final Score
+print("You got", score, "out of 2!")
