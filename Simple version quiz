@@ -1,0 +1,6 @@
+print("Welcome to the Python Quiz!")
+answer = input("What is the capital of France? ")
+if answer.lower() == "paris":
+    print("Correct! 🎉")
+else:
+    print("Oops! The answer is Paris.")
