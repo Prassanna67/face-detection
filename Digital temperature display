@@ -1,1 +1,24 @@
+#include <DHT.h>
+#include <LiquidCrystal.h>
 
+#define DHTPIN 2          // Pin connected to the data pin of DHT11
+#define DHTTYPE DHT11     // DHT 11 sensor type
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);  // RS, E, D4, D5, D6, D7
+
+void setup() {
+  lcd.begin(16, 2);      // Start LCD
+  dht.begin();           // Start DHT sensor
+  lcd.print("Temp: ");
+}
+
+void loop() {
+  delay(2000);           // Wait 2 seconds between readings
+  float temp = dht.readTemperature();  // Read temperature (Celsius)
+
+  lcd.setCursor(6, 0);   // Move cursor to print temperature
+  lcd.print(temp);
+  lcd.print((char)223);  // Degree symbol
+  lcd.print("C");
+}
