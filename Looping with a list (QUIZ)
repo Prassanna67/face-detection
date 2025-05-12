@@ -1,0 +1,16 @@
+questions = [
+    {"q": "What is 5 + 3?", "a": "8"},
+    {"q": "What is the opposite of hot?", "a": "cold"},
+    {"q": "What is the capital of India?", "a": "delhi"}
+]
+
+score = 0
+
+for q in questions:
+    ans = input(q["q"] + " ")
+    if ans.lower() == q["a"]:
+        print("Correct!")
+        score += 1
+    else:
+        print("Oops! The answer is", q["a"])
+print("You got", score, "out of", len(questions))
