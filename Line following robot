@@ -1,0 +1,71 @@
+const int leftSensor = A0;
+const int rightSensor = A1;
+const int motorA1 = 8;
+const int motorA2 = 9;
+const int motorB1 = 10;
+const int motorB2 = 11;
+
+void setup() {
+  pinMode(leftSensor, INPUT);
+  pinMode(rightSensor, INPUT);
+  pinMode(motorA1, OUTPUT);
+  pinMode(motorA2, OUTPUT);
+  pinMode(motorB1, OUTPUT);
+  pinMode(motorB2, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int leftValue = analogRead(leftSensor);
+  int rightValue = analogRead(rightSensor);
+
+  Serial.print("Left: ");
+  Serial.print(leftValue);
+  Serial.print(" Right: ");
+  Serial.println(rightValue);
+
+  // Move forward if both sensors are on the line
+  if (leftValue < 500 && rightValue < 500) {
+    moveForward();
+  }
+  // Turn left if only right sensor detects the line
+  else if (leftValue > 500 && rightValue < 500) {
+    turnLeft();
+  }
+  // Turn right if only left sensor detects the line
+  else if (leftValue < 500 && rightValue > 500) {
+    turnRight();
+  }
+  // Stop if both sensors are off the line
+  else {
+    stopMoving();
+  }
+  delay(50);
+}
+void moveForward() {
+  digitalWrite(motorA1, HIGH);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, HIGH);
+  digitalWrite(motorB2, LOW);
+}
+
+void turnLeft() {
+  digitalWrite(motorA1, LOW);
+  digitalWrite(motorA2, HIGH);
+  digitalWrite(motorB1, HIGH);
+  digitalWrite(motorB2, LOW);
+}
+
+void turnRight() {
+  digitalWrite(motorA1, HIGH);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, LOW);
+  digitalWrite(motorB2, HIGH);
+}
+
+void stopMoving() {
+  digitalWrite(motorA1, LOW);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, LOW);
+  digitalWrite(motorB2, LOW);
+}
