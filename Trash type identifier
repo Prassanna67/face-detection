@@ -1,0 +1,73 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+const int trigPin = 7;
+const int echoPin = 6;
+const int irSensor = 8;
+const int metalSensor = 9;
+const int greenLED = 10;
+const int yellowLED = 13;
+const int redLED = A0;
+const int buzzer = A1;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(irSensor, INPUT);
+  pinMode(metalSensor, INPUT);
+  pinMode(greenLED, OUTPUT);
+  pinMode(yellowLED, OUTPUT);
+  pinMode(redLED, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  lcd.begin(16, 2);
+  lcd.print("Trash Identifier");
+  delay(2000);
+  lcd.clear();
+}
+
+long measureDistance() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  long duration = pulseIn(echoPin, HIGH);
+  return (duration * 0.034) / 2;
+}
+
+void indicateTrash(String type, int ledPin) {
+  lcd.clear();
+  lcd.print("Trash: " + type);
+  digitalWrite(greenLED, LOW);
+  digitalWrite(yellowLED, LOW);
+  digitalWrite(redLED, LOW);
+  digitalWrite(ledPin, HIGH);
+  digitalWrite(buzzer, HIGH);
+  delay(500);
+  digitalWrite(buzzer, LOW);
+}
+
+void loop() {
+  long distance = measureDistance();
+  
+  if (distance < 15) {
+    int irValue = digitalRead(irSensor);
+    int metalValue = digitalRead(metalSensor);
+    
+    if (metalValue == HIGH) {
+      indicateTrash("Metallic", redLED);
+    } else if (irValue == HIGH) {
+      indicateTrash("Recyclable", yellowLED);
+    } else {
+      indicateTrash("Organic", greenLED);
+    }
+  } else {
+    lcd.clear();
+    lcd.print("Waiting for Trash");
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(redLED, LOW);
+    digitalWrite(buzzer, LOW);
+  }
+  delay(1000);
+}
