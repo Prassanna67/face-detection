@@ -1,0 +1,9 @@
+def generate_image(prompt):
+    print(f"Generating image for: '{prompt}'")
+    image = pipe(prompt).images[0]
+    image.show()
+    image.save(f"{prompt.replace(' ', '_')}.png")
+    print("Image saved successfully!")
+
+# Example prompt
+generate_image("A happy robot playing in a colorful garden")
