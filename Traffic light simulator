@@ -1,0 +1,34 @@
+const int redLight = 9;
+const int yellowLight = 10;
+const int greenLight = 11;
+
+void setup() {
+  pinMode(redLight, OUTPUT);
+  pinMode(yellowLight, OUTPUT);
+  pinMode(greenLight, OUTPUT);
+}
+void loop() {
+  // Red light on
+  digitalWrite(redLight, HIGH);
+  digitalWrite(yellowLight, LOW);
+  digitalWrite(greenLight, LOW);
+  delay(3000);  // Red light for 3 seconds
+
+  // Yellow light on
+  digitalWrite(redLight, LOW);
+  digitalWrite(yellowLight, HIGH);
+  digitalWrite(greenLight, LOW);
+  delay(1000);  // Yellow light for 1 second
+
+  // Green light on
+  digitalWrite(redLight, LOW);
+  digitalWrite(yellowLight, LOW);
+  digitalWrite(greenLight, HIGH);
+  delay(3000);  // Green light for 3 seconds
+
+  // Yellow light before red
+  digitalWrite(redLight, LOW);
+  digitalWrite(yellowLight, HIGH);
+  digitalWrite(greenLight, LOW);
+  delay(1000);  // Yellow light for 1 second
+}
