@@ -1,0 +1,25 @@
+import os
+
+# File to store tasks
+FILE_NAME = "todo_list.txt"
+
+# Load tasks from file
+def load_tasks():
+    if not os.path.exists(FILE_NAME):
+        return []
+    with open(FILE_NAME, "r") as file:
+        return file.read().splitlines()
+
+# Save tasks to file
+def save_tasks(tasks):
+    with open(FILE_NAME, "w") as file:
+        file.write("\n".join(tasks))
+
+# Display the list of tasks
+def view_tasks(tasks):
+    if not tasks:
+        print("Your to-do list is empty!")
+    else:
+        print("\nYour To-Do List:")
+        for idx, task in enumerate(tasks, 1):
+            print(f"{idx}. {task}")
