@@ -1,0 +1,7 @@
+# This is our pretend weather database!
+mock_weather_data = {
+    "London": {"temp": 15, "description": "cloudy"},
+    "New York": {"temp": 22, "description": "sunny"},
+    "Tokyo": {"temp": 18, "description": "rainy"},
+    "Chennai": {"temp": 32, "description": "hot and humid"}
+}
