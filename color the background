@@ -1,0 +1,15 @@
+def get_weather():
+    city = city_entry.get().title()
+    if city in mock_weather_data:
+        data = mock_weather_data[city]
+        weather = data['description'].lower()
+        if "rain" in weather:
+            root.config(bg="lightblue")
+        elif "sunny" in weather:
+            root.config(bg="lightyellow")
+        else:
+            root.config(bg="lightgray")
+        result_label.config(text=f"{city}:\n{data['temp']}°C, {data['description']}")
+    else:
+        result_label.config(text="Weather not found!")
+        root.config(bg="white")
