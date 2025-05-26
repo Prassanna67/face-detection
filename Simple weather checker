@@ -1,0 +1,7 @@
+city = input("Enter city name: ").title()  # Capitalizes first letter
+
+if city in mock_weather_data:
+    weather = mock_weather_data[city]
+    print(f"The weather in {city} is {weather['temp']}°C and {weather['description']}.")
+else:
+    print("Sorry, I don't have weather info for that city.")
