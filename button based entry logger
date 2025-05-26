@@ -1,0 +1,14 @@
+int buttonPin = 4;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop() {
+  if (digitalRead(buttonPin) == LOW) {
+    Serial.print("Someone entered at: ");
+    Serial.println(millis() / 1000); // Show seconds since start
+    delay(1000);  // Debounce delay
+  }
+}
