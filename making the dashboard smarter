@@ -1,0 +1,13 @@
+def update_data():
+    if ser.in_waiting:
+        data = ser.readline().decode('utf-8').strip()
+        try:
+            moisture = int(data)
+            label.config(text=f"Soil Moisture: {moisture}")
+            if moisture < 300:
+                root.config(bg="red")
+            else:
+                root.config(bg="green")
+        except:
+            label.config(text="Invalid data")
+    root.after(1000, update_data)
