@@ -1,0 +1,18 @@
+import serial
+import tkinter as tk
+
+ser = serial.Serial('COM3', 9600)  # Replace COM3 with your port
+
+def update_data():
+    if ser.in_waiting:
+        data = ser.readline().decode('utf-8').strip()
+        label.config(text=f"Soil Moisture: {data}")
+    root.after(1000, update_data)
+
+root = tk.Tk()
+root.title("🌱 Plant Monitor")
+label = tk.Label(root, text="Waiting for data...", font=("Arial", 20))
+label.pack(padx=20, pady=20)
+
+root.after(1000, update_data)
+root.mainloop()
