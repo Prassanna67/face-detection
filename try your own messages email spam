@@ -1,0 +1,8 @@
+# Try new messages
+new_messages = ["Hey! Want to grab lunch?", "You won a free vacation!", "Project deadline is tomorrow"]
+
+X_new = vectorizer.transform(new_messages)
+predictions = model.predict(X_new)
+
+for msg, label in zip(new_messages, predictions):
+    print(f"'{msg}' → {label}")
