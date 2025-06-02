@@ -1,1 +1,6 @@
+predictions = model.predict(X_test)
 
+for i in range(len(X_test.toarray())):
+    print(f"Message: {df['text'].iloc[i]}")
+    print(f"Actual: {y_test.iloc[i]}, Predicted: {predictions[i]}")
+    print("---")
