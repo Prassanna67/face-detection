@@ -1,0 +1,18 @@
+import pandas as pd
+
+# Sample data
+data = {
+    'text': [
+        'Win money now!!!',
+        'Hi, are we meeting today?',
+        'Congratulations, you just won a free iPhone!',
+        'Please review the attached invoice.',
+        'This is not spam, just checking in!',
+        'You have been selected for a cash prize!',
+        'Reminder: homework due tomorrow',
+        'Click here to claim your reward!',
+    ],
+    'label': ['spam', 'ham', 'spam', 'ham', 'ham', 'spam', 'ham', 'spam']
+}
+
+df = pd.DataFrame(data)
