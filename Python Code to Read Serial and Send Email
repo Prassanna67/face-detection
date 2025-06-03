@@ -1,0 +1,30 @@
+import serial
+import time
+import smtplib
+from email.message import EmailMessage
+
+# Serial connection to Arduino
+ser = serial.Serial('COM3', 9600)  # Use '/dev/ttyUSB0' for Linux/Mac
+time.sleep(2)  # Wait for Arduino to reset
+
+# Email setup
+EMAIL_ADDRESS = 'youremail@example.com'
+EMAIL_PASSWORD = 'yourpassword'  # Use an app password if needed
+
+def send_email():
+    msg = EmailMessage()
+    msg['Subject'] = '🚨 Motion Detected Alert!'
+    msg['From'] = EMAIL_ADDRESS
+    msg['To'] = 'friend@example.com'
+    msg.set_content('Motion has been detected by your alarm system!')
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        smtp.send_message(msg)
+        print("Email sent!")
+
+while True:
+    line = ser.readline().decode('utf-8').strip()
+    print("Arduino says:", line)
+    if "MOTION DETECTED" in line:
+        send_email()
