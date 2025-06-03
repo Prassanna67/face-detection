@@ -1,0 +1,79 @@
+// Modes: 0 = RC, 1 = Light, 2 = Line
+int mode = 1;
+
+// Sensor pins
+#define LDR_LEFT A0
+#define LDR_RIGHT A1
+#define IR_LEFT 2
+#define IR_RIGHT 3
+
+// Motor control pins
+#define IN1 5
+#define IN2 6
+#define IN3 9
+#define IN4 10
+
+void setup() {
+  pinMode(IR_LEFT, INPUT);
+  pinMode(IR_RIGHT, INPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  Serial.begin(9600); // for mode switching
+}
+
+void loop() {
+  if (Serial.available()) {
+    char input = Serial.read();
+    if (input == 'r') mode = 0; // RC Mode
+    if (input == 'l') mode = 1; // Light-Following
+    if (input == 't') mode = 2; // Line-Tracking
+  }
+
+  if (mode == 0) rcMode();
+  else if (mode == 1) lightFollowing();
+  else if (mode == 2) lineTracking();
+}
+
+// --- Modes ---
+void rcMode() {
+  // Add logic for remote buttons or Bluetooth control
+}
+
+void lightFollowing() {
+  int leftLDR = analogRead(LDR_LEFT);
+  int rightLDR = analogRead(LDR_RIGHT);
+
+  if (leftLDR < rightLDR) turnLeft();
+  else if (rightLDR < leftLDR) turnRight();
+  else moveForward();
+}
+
+void lineTracking() {
+  int leftIR = digitalRead(IR_LEFT);
+  int rightIR = digitalRead(IR_RIGHT);
+
+  if (leftIR == LOW && rightIR == LOW) moveForward();
+  else if (leftIR == LOW) turnLeft();
+  else if (rightIR == LOW) turnRight();
+  else stopMotors();
+}
+
+// --- Motor Commands ---
+void moveForward() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+void turnLeft() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+void turnRight() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+}
+void stopMotors() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+}
