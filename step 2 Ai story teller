@@ -1,0 +1,17 @@
+print("Welcome to your AI Adventure!")
+
+name = input("What's your hero's name? ")
+setting = input("Where does the story start? (forest, castle, spaceship): ")
+
+prompt = f"Write a story about a hero named {name} who starts their adventure in a {setting}."
+
+while True:
+    story = tell_story(prompt)
+    print("\n--- Story ---\n")
+    print(story)
+
+    choice = input("\nWhat should happen next? (Type a short sentence or 'exit' to end): ")
+    if choice.lower() == 'exit':
+        print("The end! 🌟")
+        break
+    prompt += "\nThen, " + choice
