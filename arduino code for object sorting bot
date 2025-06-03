@@ -1,0 +1,30 @@
+#include <Servo.h>
+
+Servo sorter;
+int sensorPin = 8;
+int sensorValue;
+
+void setup() {
+  pinMode(sensorPin, INPUT);
+  sorter.attach(9);
+  sorter.write(90); // Neutral position
+  Serial.begin(9600);
+}
+
+void loop() {
+  sensorValue = digitalRead(sensorPin);
+  Serial.println(sensorValue);
+
+  if (sensorValue == HIGH) {
+    // Object detected (e.g. light object)
+    sorter.write(45);  // Move left
+    delay(2000);
+  } else {
+    // Dark object or no object
+    sorter.write(135);  // Move right
+    delay(2000);
+  }
+
+  sorter.write(90);  // Return to middle
+  delay(1000);
+}
