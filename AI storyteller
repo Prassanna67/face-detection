@@ -1,0 +1,8 @@
+def tell_story(start_prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=start_prompt,
+        max_tokens=200,
+        temperature=0.9
+    )
+    return response.choices[0].text.strip()
