@@ -1,0 +1,15 @@
+# smart_bell.py
+from datetime import datetime
+import time
+from playsound import playsound
+from school_times import bell_times
+
+print("🔔 Smart School Bell Started!")
+
+while True:
+    now = datetime.now().strftime("%H:%M")
+    if now in bell_times:
+        print(f"🔔 Ringing bell for {now}")
+        playsound("school_bell.mp3")  # Use a school bell sound
+        time.sleep(60)  # Avoid multiple rings for the same time
+    time.sleep(1)
