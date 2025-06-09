@@ -1,0 +1,36 @@
+import cv2
+
+# Start the camera
+cap = cv2.VideoCapture(0)
+
+# Use pre-trained people detector
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Detect people in the frame
+    people, _ = hog.detectMultiScale(frame, winStride=(4, 4), padding=(8, 8), scale=1.05)
+
+    # Draw rectangles around people
+    for (x, y, w, h) in people:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+    # Display message
+    if len(people) > 0:
+        print("Person detected! Light ON 💡")
+    else:
+        print("No person. Light OFF 🌑")
+
+    # Show camera feed
+    cv2.imshow("Smart Room", frame)
+
+    # Press 'q' to quit
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
