@@ -1,0 +1,11 @@
+import time
+from playsound import playsound
+
+# Simulated alert function
+def alert():
+    print("⚠️ Accident Detected! Sending alert...")
+    playsound('alert.mp3')  # Add any alert sound
+
+# Simulate accident (e.g. sudden stop)
+time.sleep(5)
+alert()
