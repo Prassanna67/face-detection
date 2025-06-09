@@ -1,0 +1,14 @@
+from PIL import Image, ImageDraw, ImageFont
+
+# Open your background image or create one
+img = Image.new('RGB', (800, 600), color=(255, 230, 200))  # light background
+
+draw = ImageDraw.Draw(img)
+
+# Add title to the poster
+font = ImageFont.truetype("arial.ttf", 40)  # make sure Arial or similar font is installed
+draw.text((100, 250), title, fill=(0, 0, 0), font=font)
+
+# Save the final poster
+img.save("ai_poster.png")
+print("Poster saved as ai_poster.png!")
