@@ -1,0 +1,8 @@
+import random
+
+# Simulated data
+soil_moisture = random.randint(0, 100)  # 0 (dry) to 100 (wet)
+weather_forecast = random.choice(["rainy", "sunny", "cloudy"])
+
+print("Soil Moisture Level:", soil_moisture)
+print("Weather Forecast:", weather_forecast)
