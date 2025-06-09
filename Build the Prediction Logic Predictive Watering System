@@ -1,0 +1,9 @@
+def should_water(soil, weather):
+    if soil < 30 and weather != "rainy":
+        return True
+    return False
+
+if should_water(soil_moisture, weather_forecast):
+    print("🌱 Watering plant... 💧")
+else:
+    print("No need to water today!")
