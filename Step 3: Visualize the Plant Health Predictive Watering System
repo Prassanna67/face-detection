@@ -1,0 +1,12 @@
+import matplotlib.pyplot as plt
+
+moisture_levels = [random.randint(20, 100) for _ in range(7)]
+days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+plt.plot(days, moisture_levels, marker='o', color='green')
+plt.title("Plant Soil Moisture Over a Week")
+plt.ylabel("Moisture Level")
+plt.xlabel("Day")
+plt.axhline(y=30, color='red', linestyle='--', label="Watering Needed")
+plt.legend()
+plt.show()
