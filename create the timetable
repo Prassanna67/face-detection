@@ -1,0 +1,12 @@
+# school_times.py
+bell_times = [
+    "08:00",  # Start of school
+    "09:00",  # Period 1 ends
+    "10:00",  # Period 2 ends
+    "11:00",  # Break
+    "11:15",  # After break
+    "12:00",  # Period 3 ends
+    "13:00",  # Lunch
+    "14:00",  # Last period
+    "15:00"   # End of school
+]
