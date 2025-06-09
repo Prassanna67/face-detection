@@ -1,0 +1,35 @@
+import pyttsx3
+import speech_recognition as sr
+import os
+
+def talk(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = recognizer.listen(source)
+        try:
+            return recognizer.recognize_google(audio)
+        except:
+            return ""
+
+def process_command(command):
+    command = command.lower()
+    if "hello" in command:
+        talk("Hello! How can I help you?")
+    elif "open notepad" in command:
+        talk("Opening Notepad")
+        os.system("notepad")
+    elif "exit" in command:
+        talk("Goodbye!")
+        exit()
+    else:
+        talk("Sorry, I didn't understand that.")
+
+while True:
+    command = listen()
+    process_command(command)
